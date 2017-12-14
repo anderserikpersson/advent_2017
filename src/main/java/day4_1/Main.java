@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main main = new Main();
-        System.out.println("Result=" + main.solve("day4_1/input.txt"));
+        System.out.println("Result=" + main.solve("day4/input.txt"));
     }
 
     private long solve(String filePath) throws IOException {
