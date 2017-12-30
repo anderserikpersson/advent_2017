@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException {
         Main main = new Main();
         int[] banks = {14, 0, 15, 12, 11, 11, 3, 5, 1, 6, 8, 4, 9, 1, 8, 4};
-        //int[] banks = {0,2,7,0};
         System.out.println("Result=" + main.solve(banks));
     }
 
