@@ -35,8 +35,6 @@ public class Main {
     }
 
     private long solve(String filePath) throws IOException {
-        List<Node> nodes = Lists.newArrayList();
-
         String line = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(filePath));
         values = line.split(" ");
 
@@ -64,36 +62,27 @@ public class Main {
     }
 
     private class Node {
-
         Header header;
         List<Node> childs = Lists.newArrayList();
         List<Integer> metadata = Lists.newArrayList();
 
-        public Node(Header header) {
+        private Node(Header header) {
             this.header = header;
         }
 
-        public List<Node> getChilds() {
+        private List<Node> getChilds() {
             return childs;
         }
 
-        public void setChilds(List<Node> childs) {
-            this.childs = childs;
-        }
-
-        public void addChild(Node child) {
+        private void addChild(Node child) {
             this.childs.add(child);
         }
 
-        public List<Integer> getMetadata() {
+        private List<Integer> getMetadata() {
             return metadata;
         }
 
-        public void setMetadata(List<Integer> metadata) {
-            this.metadata = metadata;
-        }
-
-        public void addMetadata(Integer metadata) {
+        private void addMetadata(Integer metadata) {
             this.metadata.add(metadata);
         }
     }
@@ -102,25 +91,17 @@ public class Main {
         int nrOfChilds;
         int nrOfMetadata;
 
-        public Header(int nrOfChilds, int nrOfMetadata) {
+        private Header(int nrOfChilds, int nrOfMetadata) {
             this.nrOfChilds = nrOfChilds;
             this.nrOfMetadata = nrOfMetadata;
         }
 
-        public int getNrOfChilds() {
+        private int getNrOfChilds() {
             return nrOfChilds;
         }
 
-        public void setNrOfChilds(int nrOfChilds) {
-            this.nrOfChilds = nrOfChilds;
-        }
-
-        public int getNrOfMetadata() {
+        private int getNrOfMetadata() {
             return nrOfMetadata;
-        }
-
-        public void setNrOfMetadata(int nrOfMetadata) {
-            this.nrOfMetadata = nrOfMetadata;
         }
     }
 
