@@ -11,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,15 +28,15 @@ public class Main {
         ArrayList<Constellation> constellations = Lists.newArrayList();
 
         points.forEach(point -> {
-            System.out.println("----: Kollar : " + point + " :---------");
-            Optional<Constellation> constellation = constellations.stream().filter(c -> c.isMember(point)).findFirst();
+            List<Constellation> memberConstellations = constellations.stream().filter(c -> c.isMember(point)).collect(Collectors.toList());
 
-            if (constellation.isPresent()) {
-                System.out.println("Join");
-                constellation.get().join(point);
-            } else {
-                System.out.println("*** New constellation: " + point);
+            if (memberConstellations.isEmpty()) {
                 constellations.add(new Constellation(point));
+            } else {
+                Constellation mergedConstellation = new Constellation(point);
+                memberConstellations.forEach(mergedConstellation::merge);
+                constellations.removeIf(c -> c.isMember(point));
+                constellations.add(mergedConstellation);
             }
         });
 
@@ -48,15 +47,19 @@ public class Main {
     private class Constellation {
         Set<Point> points = Sets.newHashSet();
 
-        public Constellation(Point point) {
-            this.join(point);
+        Constellation(Point point) {
+            this.merge(point);
         }
 
-        public void join(Point point) {
+        void merge(Point point) {
             points.add(point);
         }
 
-        public boolean isMember(Point point) {
+        void merge(Constellation other) {
+            points.addAll(other.points);
+        }
+
+        boolean isMember(Point point) {
             return points.stream().anyMatch(p -> p.distance(point) <= 3);
         }
     }
@@ -79,10 +82,8 @@ public class Main {
         }
 
 
-        public int distance(Point other) {
-            int dist = Math.abs(x - other.x) + Math.abs(y - other.y) + Math.abs(z - other.z) + Math.abs(time - other.time);
-            System.out.println(this + " " + other + " distance: " + dist);
-            return dist;
+        int distance(Point other) {
+            return Math.abs(x - other.x) + Math.abs(y - other.y) + Math.abs(z - other.z) + Math.abs(time - other.time);
         }
 
         @Override
