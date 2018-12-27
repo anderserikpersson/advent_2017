@@ -73,7 +73,7 @@ public class Main {
 
         @Override
         public String toString() {
-            return "Claim{" +
+            return "ReposeRecord{" +
                     "id=" + id +
                     ", x=" + x +
                     ", y=" + y +
